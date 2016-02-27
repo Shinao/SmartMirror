@@ -1,0 +1,27 @@
+html {
+ background-color: black;
+ color: white;
+ text-align: center;
+ font-size: 32px;
+ font-family: "HelveticaNeue-Light", sans-serif;
+ line-height:1;
+}
+
+#time {
+	font-size: 700%;
+	margin:0;
+	overflow:hidden;
+	opacity: 1;
+}
+
+#weatherContainer {
+	opacity: 0.6;
+}
+
+#weatherContainer #metric {
+	font-size: 50%;
+}
+
+#date {
+	opacity: 0.6;
+}
