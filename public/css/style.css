@@ -1,0 +1,272 @@
+html {
+ background-color: black;
+ text-align: center;
+ font-size: 32px;
+ font-family: "HelveticaNeue-Light", sans-serif;
+ line-height:1;
+ color: #6E6E6E;
+}
+
+body {
+	margin: 0;
+}
+
+.pt-perspective2 {
+	//position: relative;
+	width: 100%;
+	height: 100%;
+	//perspective: 1200px;
+	transform-style: preserve-3d;
+}
+
+.pt-page {
+	width: 100%;
+	position: absolute;
+	visibility: hidden;
+	overflow: hidden;
+	backface-visibility: hidden;
+	transform: translate3d(0, 0, 0);
+}
+
+.pt-page-current,
+.no-js .pt-page {
+	visibility: visible;
+}
+
+.no-js body {
+	overflow: auto;
+}
+
+.pt-page-ontop {
+	z-index: 999;
+}
+
+/* scale and fade */
+
+.pt-page-scaleDown {
+	animation: scaleDown .7s ease both;
+}
+
+.pt-page-scaleUp {
+	animation: scaleUp .7s ease both;
+}
+
+.pt-page-scaleUpDown {
+	animation: scaleUpDown .5s ease both;
+}
+
+.pt-page-scaleDownUp {
+	animation: scaleDownUp .5s ease both;
+}
+
+.pt-page-scaleDownCenter {
+	animation: scaleDownCenter .4s ease-in both;
+}
+
+.pt-page-scaleUpCenter {
+	animation: scaleUpCenter .4s ease-out both;
+}
+
+/************ keyframes ************/
+
+/* scale and fade */
+
+@keyframes scaleDown {
+	to { opacity: 0; transform: scale(.8); }
+}
+
+@keyframes scaleUp {
+	from { opacity: 0; transform: scale(.8); }
+}
+
+@keyframes scaleUpDown {
+	from { opacity: 0; transform: scale(1.2); }
+}
+
+@keyframes scaleDownUp {
+	to { opacity: 0; transform: scale(1.2); }
+}
+
+@keyframes scaleDownCenter {
+	to { opacity: 0; transform: scale(.7); }
+}
+
+@keyframes scaleUpCenter {
+	from { opacity: 0; transform: scale(.7); }
+}
+
+#canvasAgario
+{
+	margin: auto;
+	display: block;
+}
+
+#time {
+	font-size: 700%;
+	margin:0;
+	overflow:hidden;
+	opacity: 1;
+	color: white;
+}
+
+#weatherContainer #metric {
+	font-size: 50%;
+}
+
+#infoContainer {
+	margin-bottom: 32px;
+}
+
+#hand
+{
+	fill: gray;
+}
+
+.swiper-container img.swiper-slide-active
+{
+  //border: 2px solid red;
+  //box-sizing: border-box;
+}
+
+.swiper-slide-active {
+  //transform: scale(1.1) !important; 
+}
+
+.swiper-container {
+        width: 570px;
+        height: 170px;
+    }
+    
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+#menuContainer
+{
+	position: absolute;
+    margin-bottom: 124px;
+	width: 100%;
+    bottom: 0;
+}
+
+.cross2 {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: dash 15s linear forwards;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.progress-button button
+{
+    display: block;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+    padding: 0;    
+    background-color: transparent;    
+    border: 2px solid #1ecd97;
+    border-radius: 80px;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.progress-button button:focus {
+    outline: none;    
+}
+
+.progress-button svg
+{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.progress-button svg path {
+    visibility: hidden; 
+    opacity: 0;
+    fill: none;
+}
+
+#progress {
+    stroke: #1ecd97;
+    stroke-width: 5;
+}
+
+.progress-button svg.checkmark path, 
+.progress-button svg.cross path 
+{
+    stroke: #ffffff;
+    stroke-width: 5;
+    stroke-linecap: round;
+    -webkit-transition: visibility 0s linear .1s, opacity 0.1s linear;
+    transition: visibility 0s linear .1s, opacity 0.1s linear;
+}
+
+.loading.progress-button button {
+    width: 140px;
+    height: 140px;
+    background-color: transprarent;
+    border-width: 10px;
+    border-color: #ddd;
+    color: #fff;
+    -webkit-transition-delay: 0s;
+    transition-delay: 0s;
+}
+.loading.progress-button button:hover, .loading.progress-button button:focus
+{
+    background-color: transparent;
+}
+
+.loading.progress-button button span,
+.success.progress-button button span,
+.error.progress-button button span 
+{
+    visibility: hidden; 
+    opacity: 0;
+}
+
+.loading.progress-button svg.progress-circle path,
+.success.progress-button svg.checkmark path,
+.error.progress-button svg.cross path {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transition: stroke-dashoffset 0.3s;
+    transition: stroke-dashoffset 0.3s;    
+}
+
+.success.progress-button button {
+    background-color: #1ecd97;
+    border-color: #1ecd97;
+}
+.error.progress-button button {
+    background-color: #fb797e;
+    border-color: #fb797e;
+}
+
+#map {
+	margin: auto;
+	width: 80%;
+	height: 60%;
+}

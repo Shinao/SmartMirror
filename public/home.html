@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>SmartMirror</title>
+	
+	<script src="js/jquery-2.2.1.min.js" type="text/javascript"></script>
+	<script src="js/swiper.min.js" type="text/javascript"></script>
+	<script src="js/main_infos.js" type="text/javascript"></script>
+	<script src="js/menu_button.js" type="text/javascript"></script>
+	<script src="js/menu.js" type="text/javascript"></script>
+	<script src="js/widget_map.js" type="text/javascript"></script>
+	
+	<link rel="stylesheet" href="css/style.css" type="text/css" />
+	<link rel="stylesheet" href="css/weather-icons.min.css" type="text/css" />
+	<link rel="stylesheet" href="css/swiper.min.css" type="text/css" />
+	<link rel="stylesheet" href="http://tympanus.net/Development/PageTransitions/css/animations.css" type="text/css" />
+  </head>
+  <body>
+	<div id="smartMirror">
+			<div id="infoContainer">
+				<div id="time"></div>
+				<div>
+					<span id="date"></span> - 
+					<span id="weatherContainer">
+						<span id="iconStatus"></span>
+						<span id="temperature"></span>
+					</span>
+				</div>
+			</div>
+
+			<div id="menuContainer">
+				<div class="progress-button pt-page pt-page-1 pt-page-current">
+					<button></button>
+					<!-- svg circle for progress indication -->
+					<svg class="progress-circle" width="140" height="140">
+						<path  id="progress" transform="scale(2)" d="m35,2.5c17.955803,0 32.5,14.544199 32.5,32.5c0,17.955803 -14.544197,32.5 -32.5,32.5c-17.955803,0 -32.5,-14.544197 -32.5,-32.5c0,-17.955801 14.544197,-32.5 32.5,-32.5z"/>
+						<path transform="scale(0.8) translate(20, 20)" id="hand" fill="#333333" d=" M 61.42 0.00 L 61.71 0.00 C 65.70 0.26 69.06 3.71 68.91 7.76 C 69.06 23.18 68.78 38.61 69.04 54.03 C 68.81 55.80 71.24 57.34 72.62 56.09 C 74.13 55.39 73.68 53.39 73.86 52.06 C 73.85 39.01 73.81 25.97 73.86 12.92 C 73.57 8.54 77.56 4.40 82.02 5.07 C 85.94 5.35 88.69 9.16 88.69 12.92 C 88.54 27.28 88.69 41.65 88.60 56.01 C 88.64 57.60 88.50 59.28 89.28 60.73 C 90.91 62.27 93.62 61.06 93.45 58.81 C 93.67 48.18 93.43 37.54 93.53 26.91 C 93.60 21.67 99.83 17.96 104.39 20.65 C 107.82 22.35 108.62 26.49 108.36 29.97 C 108.24 50.98 108.36 71.98 108.30 92.99 C 108.23 101.83 105.52 110.97 99.32 117.48 C 92.52 125.25 81.71 127.75 71.78 128.00 L 69.10 128.00 C 60.82 127.63 52.34 126.19 45.11 121.90 C 39.71 118.79 35.30 114.21 31.90 109.03 C 24.72 98.21 17.61 87.35 10.42 76.53 C 8.96 74.25 7.52 71.71 7.68 68.90 C 7.63 64.47 11.50 60.38 15.99 60.51 C 19.26 60.43 22.27 62.28 24.20 64.83 C 27.75 69.38 31.02 74.15 34.47 78.79 C 34.43 58.44 34.53 38.08 34.42 17.74 C 34.40 14.28 36.72 10.81 40.22 10.13 C 44.61 8.95 49.30 12.73 49.18 17.26 C 49.31 29.17 49.15 41.10 49.23 53.02 C 49.25 54.29 49.43 56.09 50.99 56.36 C 52.93 57.25 54.43 54.88 54.13 53.12 C 54.19 38.03 54.14 22.94 54.14 7.86 C 53.97 3.75 57.35 0.21 61.42 0.00 Z" />
+					</svg>
+					 <!-- checkmark to show on success -->
+					<svg class="checkmark" width="140" height="140">
+						<path transform="scale(2)" d="m31.5,46.5l15.3,-23.2"/>
+						<path transform="scale(2)" d="m31.5,46.5l-8.5,-7.1"/>
+					</svg>
+					<!-- cross to show on error -->
+					<svg class="cross" width="140" height="140">
+						<path class="cross2" transform="scale(2)" d="m35,35l-9.3,-9.3"/>
+						<path transform="scale(2)" d="m35,35l9.3,9.3"/>
+						<path transform="scale(2)" d="m35,35l-9.3,9.3"/>
+						<path transform="scale(2)" d="m35,35l9.3,-9.3"/>
+					</svg>
+				</div>
+				
+				<!-- Slider main container -->
+				<div class="swiper-container pt-page pt-page-2">
+					<!-- Additional required wrapper -->
+					<div class="swiper-wrapper">
+						<!-- Slides -->
+						<img class="swiper-slide" src="https://lh3.googleusercontent.com/MOf9Kxxkj7GvyZlTZOnUzuYv0JAweEhlxJX6gslQvbvlhLK5_bSTK6duxY2xfbBsj43H=w300"/>
+						<img class="swiper-slide" src="https://lh5.ggpht.com/tq3WqEUxtRyBn-d_0t3j6WKNHuJDrmLq-FE3GAYrsAMQFIaS7FIgRLfzzql2SvfvLqto=w300"/>
+						<img class="swiper-slide" src="https://lh4.ggpht.com/JX2-YzeW0rTwT9QdXWB1AAk8nj3OhN-bSBT4XqxZs5LPhgIyAeEm9g0hlmmzf_dBVaA=w300-rw"/>
+						<img class="swiper-slide" src="https://lh5.ggpht.com/6i_1xxlbFfa-_oTnNngjBtaXzA8FCTusKLmHT8_jFmjW_GJ250FzECdsU7TrDdwXkw=w300-rw"/>
+						<img class="swiper-slide" src="https://lh3.googleusercontent.com/fnqDFUD0zN_T1rR-4fyiCGsn6-MVE3azzA6fgMZN5xmsNIvpNQ7NbG0sXNGovftaQhb6=w300-rw"/>
+						<img class="swiper-slide" src="https://lh3.googleusercontent.com/tdnLCmVke0WIky9yRVs3YmoCvJeOhDB4FT9h9ntpr097B_howB8g4MQsyr4Fz_MNyDk3=w300-rw"/>
+					</div>
+					<!-- If we need navigation buttons -->
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
+			</div>
+	</div>
+	<div id="widget"></div>
+	<script src="js/mo.min.js" type="text/javascript"></script>
+  </body>
+</html>

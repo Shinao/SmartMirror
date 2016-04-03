@@ -1,4 +1,11 @@
+var server;
+
 $(document).ready(function() {
+    /*server = new WebSocket("ws://localhost:7777/");
+    server.onmessage = function (event) {
+      console.log(event.data);
+    }*/
+
     function checkTime(i) {
         return (i < 10) ? "0" + i : i;
     }
@@ -13,7 +20,7 @@ $(document).ready(function() {
 		var date = new Date(),
 		months = ['January','February','March','April','May','June','July','August','Septembe','October','November','December'],
 		days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-		$("#date").html(days[date.getDay()] + ' ' + months[date.getMonth()] + ' ' + date.getDate());
+		$("#date").html(days[date.getDay()] + ' ' + date.getDate() + ' ' + months[date.getMonth()]);
 
 		t = setTimeout(function () {
             startDateTime()
@@ -43,15 +50,16 @@ $(document).ready(function() {
 			'50n':'wi-night-alt-cloudy-windy'
 		}
 		
-		$.getJSON( "api/weather", function (weather) {
-		  $("#weatherContainer #temperature").html(weather['main']['temp'] + '<sup id="metric">°</sup>');
-		  $("#weatherContainer #iconStatus").removeClass().addClass('wi').addClass(weather_icons[weather['weather'][0]['icon']]);
-		  console.log(weather);
+		$.getJSON("weather", function (weather) {
+			weather = weather['body'];
+			$("#weatherContainer #temperature").html(weather['main']['temp'] + '<sup id="metric">°</sup>');
+			$("#weatherContainer #iconStatus").removeClass().addClass('wi').addClass(weather_icons[weather['weather'][0]['icon']]);
 		});
 		
 		t = setTimeout(function () {
 			updateWeather();
 		}, 1000 * 60 * 10);
 	}
+	
 	updateWeather();
 });
