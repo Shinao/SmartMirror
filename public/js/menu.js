@@ -33,9 +33,17 @@ function loadWidget(img, render_page, callback) {
 }
 
 $(document).ready(function() {
-	loadWidget("img/map.png", "test.html", "xxxx");
-	loadWidget("img/drive_photo.png", "test.html", "xxxx");
-	loadWidget("img/news.png", "test.html", "xxxx");
-	loadWidget("img/cinema.png", "test.html", "xxxx");
-	loadWidget("img/agario.png", "test.html", "xxxx");
+	loadWidget("img/drive_photo.png", "widget_drive_photo.html", "xxxx");
+	loadWidget("img/news.png", "widget_news.html", "xxxx");
+	
+	loadWidget("img/agario.png", "widget_agario.html", "xxxx");
+	loadWidget("img/map.png", "widget_map.html", "xxxx");
+	loadWidget("img/cinema.png", "widget_cinema.html", "xxxx");
+	
+	$('body').on('click', '.swiper-slide-active', function() {
+		$("#widget").load($(this).data('render'));
+		
+		$(".screen-page-1").addClass("pt-page-moveToLeftFade");
+		$(".screen-page-2").addClass("pt-page-current pt-page-moveFromRightFade");
+	});
 });

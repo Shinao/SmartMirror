@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var animationDuration = 750;
+		
 	var scaleCurve = mojs.easing.path('M0,100 L25,99.9999983 C26.2328835,75.0708847 19.7847843,0 100,0');
     var el = document.querySelector('.progress-button'),
 	elSpan = el.querySelector('button'),
@@ -26,7 +28,7 @@ $(document).ready(function() {
 	// ring animation
 	tween2 = new mojs.Transit({
 		parent: el,
-		duration: 750,
+		duration: animationDuration,
 		type: 'circle',
 		radius: {0: 80},
 		fill: 'transparent',
@@ -82,10 +84,10 @@ $(document).ready(function() {
 		 
 		if ($button.hasClass('success'))
 		{
-		$button.removeClass('success');
-		$button.addClass('loading');
-		$progress.svgDraw(0);
-		return;
+			$button.removeClass('success');
+			$button.addClass('loading');
+			$progress.svgDraw(0);
+			return;
 		}
 		
 		$(this).addClass('loading');
@@ -105,9 +107,13 @@ $(document).ready(function() {
 				timeline.start();
 				
 				setTimeout(function() {
-					$(".pt-page-1").addClass("pt-page-moveToLeftFade");
+					$(".pt-page-1").addClass("pt-page-moveToLeftFade").removeClass("pt-page-current");
 					$(".pt-page-2").addClass("pt-page-current pt-page-moveFromRightFade");
-				}, 750);
+					
+					setTimeout(function() {
+						$(".pt-page-1").removeClass("pt-page-current");
+					}, 1000);
+				}, animationDuration);
 
 				//$button.addClass('error');
 			}
@@ -116,4 +122,14 @@ $(document).ready(function() {
 		// Now that we finished, unbind
 		//$(this).off('click');
 	});
+	
+			
+		setTimeout(function() {
+					$(".pt-page-1").addClass("pt-page-moveToLeftFade").removeClass("pt-page-current");
+					$(".pt-page-2").addClass("pt-page-current pt-page-moveFromRightFade");
+					
+					setTimeout(function() {
+						$(".pt-page-1").removeClass("pt-page-current");
+					}, 1000);
+				}, 10);
 });
