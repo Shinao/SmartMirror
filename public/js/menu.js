@@ -35,7 +35,6 @@ function loadWidget(img, render_page, callback) {
 $(document).ready(function() {
 	loadWidget("img/drive_photo.png", "widget_drive_photo.html", "xxxx");
 	loadWidget("img/news.png", "widget_news.html", "xxxx");
-	
 	loadWidget("img/agario.png", "widget_agario.html", "xxxx");
 	loadWidget("img/map.png", "widget_map.html", "xxxx");
 	loadWidget("img/cinema.png", "widget_cinema.html", "xxxx");

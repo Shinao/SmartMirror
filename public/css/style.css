@@ -5,7 +5,7 @@ html {
  font-family: "HelveticaNeue-Light", sans-serif;
  line-height:1;
  color: #6E6E6E;
- overflow: hidden;
+ //overflow: hidden;
 }
 
 body {
@@ -27,7 +27,7 @@ body {
 #time {
 	font-size: 700%;
 	margin:0;
-	overflow:hidden;
+	//overflow:hidden;
 	opacity: 1;
 	color: white;
 }
@@ -169,7 +169,7 @@ body {
 	height: 100%;
 	//position: absolute;
 	visibility: hidden;
-	overflow: hidden;
+	//overflow: hidden;
 	backface-visibility: hidden;
 	//transform: translate3d(0, 0, 0);
 }
@@ -179,7 +179,7 @@ body {
 	//height: 100%;
 	position: absolute;
 	visibility: hidden;
-	overflow: hidden;
+	//overflow: hidden;
 	backface-visibility: hidden;
 	transform: translate3d(0, 0, 0);
 }
@@ -275,4 +275,51 @@ body {
 	-ms-flex-align: center;
 	-webkit-align-items: center;
 	align-items: center;
+}
+
+#cinema {
+	display: table;
+	margin: 0 auto;
+}
+
+#widget .movie {
+	clear: both;
+}
+
+#cinema progress[value] {
+	margin: 8px 0;
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+   appearance: none;
+
+  width: 150px;
+  height: 20px;
+}
+
+#cinema .hour {
+	display: inline-block;
+	background-color: #1A1A59;
+	border-radius: 4px;
+	padding: 4px 8px;
+	margin: 4px;
+}
+
+#cinema .title {
+	color: #CECECE;
+}
+
+#cinema progress[value]::-webkit-progress-bar {
+  background-color: #333333;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
+}
+
+#cinema progress[value]::-webkit-progress-value {
+  background-color: #C79810;
+}
+
+#widget .thumbnail, #widget .meta {
+	margin: 16px;
+	float: left;
+	text-align: left;
 }

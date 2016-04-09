@@ -130,6 +130,7 @@ $(document).ready(function() {
 					
 					setTimeout(function() {
 						$(".pt-page-1").removeClass("pt-page-current");
+						$(".swiper-slide-active").click();
 					}, 1000);
 				}, 10);
 });
