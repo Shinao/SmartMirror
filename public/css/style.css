@@ -277,13 +277,18 @@ body {
 	align-items: center;
 }
 
-#cinema {
+#cinema, #news {
 	display: table;
 	margin: 0 auto;
 }
 
-#widget .movie {
+#cinema .movie {
 	clear: both;
+}
+
+#news tr td img {
+	height: 156;
+	weight: 156px;
 }
 
 #cinema progress[value] {
@@ -304,7 +309,7 @@ body {
 	margin: 4px;
 }
 
-#cinema .title {
+#cinema .title, #news .title {
 	color: #CECECE;
 }
 
@@ -322,4 +327,5 @@ body {
 	margin: 16px;
 	float: left;
 	text-align: left;
+	max-width: 400px;
 }
