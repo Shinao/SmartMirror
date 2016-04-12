@@ -1,13 +1,9 @@
 var request = require('request');
 var cheerio = require('cheerio');
-
-var listening_port = 3000;
-var url_weather = 'http://api.openweathermap.org/data/2.5/weather?id=2988507&units=metric&appid=XXXXXX';
-var url_cinema = 'http://www.allocine.fr/seance/salle_gen_csalle=C0159.html';
-var url_news = 'http://www.france24.com/en/top-stories/rss';
+var config = require('./config');
 
 module.exports.weather = function (req, res) {
-	request({url: url_weather, json: true}, function (error, response, body) {
+	request({url: config.widget.weather.url, json: true}, function (error, response, body) {
 		if (!error && response.statusCode === 200) {
 			res.send(response);
 		}
@@ -15,7 +11,7 @@ module.exports.weather = function (req, res) {
 }
 
 module.exports.news = function (req, res) {
-	request(url_news, function (error, response, xml) {
+	request(config.widget.news.url, function (error, response, xml) {
 		if (error || response.statusCode !== 200)
 			return;
 		
@@ -41,7 +37,7 @@ module.exports.agario = function (req, res) {
 }
 
 var movies = [];
-request(url_cinema, function (error, response, html) {
+request(config.widget.cinema.url, function (error, response, html) {
 		if (error || response.statusCode !== 200)
 			return;
 		
