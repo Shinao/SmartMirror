@@ -2,22 +2,14 @@ var request = require('request');
 var cheerio = require('cheerio');
 var config = require('./config');
 
-module.exports.weather = function (req, res) {
-	request({url: config.widget.weather.url, json: true}, function (error, response, body) {
-		if (!error && response.statusCode === 200) {
-			res.send(response);
-		}
-	})
-}
-
-module.exports.news = function (req, res) {
+var news = [];
+var refreshNews = function() {
 	request(config.widget.news.url, function (error, response, xml) {
 		if (error || response.statusCode !== 200)
 			return;
 		
 		var parseString = require('xml2js').parseString;
 		parseString(xml, function (err, result) {
-			var news = [];
 			items = result.rss.channel[0].item;
 			items.forEach(function(item) {
 				var entry_news = new Object();
@@ -27,9 +19,29 @@ module.exports.news = function (req, res) {
 				entry_news.img = item.thumbnail[0].$.url.replace("medium2", "bigger");
 				news.push(entry_news);
 			});
-			res.send(JSON.stringify(news));
 		});
 	});
+}
+setTimeout(refreshNews, 1000 * 60 * config.widget.news.refreshRateInMinutes);
+refreshNews();
+
+module.exports.news = function (req, res) {
+	res.send(JSON.stringify(news));
+}
+
+var weather = {};
+var refreshWeather = function() {
+	request({url: config.widget.weather.url, json: true}, function (error, response, body) {
+		if (!error && response.statusCode === 200) {
+			weather = response;
+		}
+	});
+}
+setTimeout(refreshWeather, 1000 * 60 * config.widget.weather.refreshRateInMinutes);
+refreshWeather();
+
+module.exports.weather = function (req, res) {
+	res.send(weather);
 }
 
 module.exports.agario = function (req, res) {
@@ -37,12 +49,12 @@ module.exports.agario = function (req, res) {
 }
 
 var movies = [];
-request(config.widget.cinema.url, function (error, response, html) {
+var refreshMovies = function() {
+	request(config.widget.cinema.url, function (error, response, html) {
 		if (error || response.statusCode !== 200)
 			return;
 		
 		var $ = cheerio.load(html);
-		//var movies = []
 		
 		$('.hred').each(function(i, elem) {
 			var movie = new Object();
@@ -64,8 +76,10 @@ request(config.widget.cinema.url, function (error, response, html) {
 		});
 		
 		//movies.sort(function(a, b) { return (a.totalRating > b.totalRating) ? -1 : 1;} );
-		//res.send(JSON.stringify(movies));
 	});
+}
+setTimeout(refreshMovies, 1000 * 60 * config.widget.cinema.refreshRateInMinutes);
+refreshMovies();
 
 module.exports.cinema = function (req, res) {
 	res.send(JSON.stringify(movies));

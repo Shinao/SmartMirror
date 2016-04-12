@@ -58,7 +58,7 @@ $(document).ready(function() {
 		
 		t = setTimeout(function () {
 			updateWeather();
-		}, 1000 * 60 * 10);
+		}, 1000 * 30);
 	}
 	
 	updateWeather();
