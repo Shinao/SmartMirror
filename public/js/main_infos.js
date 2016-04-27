@@ -55,11 +55,12 @@ $(document).ready(function() {
 			$("#weatherContainer #temperature").html(weather['main']['temp'] + '<sup id="metric">°</sup>');
 			$("#weatherContainer #iconStatus").removeClass().addClass('wi').addClass(weather_icons[weather['weather'][0]['icon']]);
 		});
-		
-		t = setTimeout(function () {
-			updateWeather();
-		}, 1000 * 30);
 	}
 	
-	updateWeather();
+	function refreshInfos() {
+		updateWeather();
+		$("#ephemeris").html(ephemeris.getTodayEphemeris());
+	}
+	setTimeout(refreshInfos, 1000 * 30);
+	refreshInfos();
 });

@@ -6,6 +6,7 @@
 	<script src="js/swiper.min.js" type="text/javascript"></script>
 	<script src="js/main_infos.js" type="text/javascript"></script>
 	<script src="js/menu_button.js" type="text/javascript"></script>
+	<script src="js/ephemeris.js" type="text/javascript"></script>
 	<script src="js/menu.js" type="text/javascript"></script>
 	<script src="js/widget_map.js" type="text/javascript"></script>
 	
@@ -15,10 +16,11 @@
   </head>
   <body>
 	<div id="smartMirror" class="screen-page screen-page-1 screen-page-current">
-			<div id="infoContainer">
+			<div id="infoContainer" class="miniInfo">
+				<span id="date"></span>
 				<div id="time"></div>
-				<div>
-					<span id="date"></span> - 
+				<div class="miniInfo">
+					<span id="ephemeris"></span> - 
 					<span id="weatherContainer">
 						<span id="iconStatus"></span>
 						<span id="temperature"></span>

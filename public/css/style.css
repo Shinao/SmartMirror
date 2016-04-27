@@ -30,6 +30,7 @@ body {
 	//overflow:hidden;
 	opacity: 1;
 	color: white;
+	margin: -20px;
 }
 
 #weatherContainer #metric {
