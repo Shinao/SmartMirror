@@ -1,0 +1,97 @@
+{
+  "name": "socket.io-client",
+  "version": "1.4.5",
+  "keywords": [
+    "realtime",
+    "framework",
+    "websocket",
+    "tcp",
+    "events",
+    "client"
+  ],
+  "main": "./lib/index",
+  "jspm": {
+    "main": "socket.io.js"
+  },
+  "dependencies": {
+    "debug": "2.2.0",
+    "engine.io-client": "1.6.8",
+    "component-bind": "1.0.0",
+    "component-emitter": "1.2.0",
+    "object-component": "0.0.3",
+    "socket.io-parser": "2.2.6",
+    "has-binary": "0.1.7",
+    "indexof": "0.0.1",
+    "parseuri": "0.0.4",
+    "to-array": "0.1.4",
+    "backo2": "1.0.2"
+  },
+  "devDependencies": {
+    "base64-arraybuffer": "0.1.5",
+    "browserify": "13.0.0",
+    "concat-stream": "1.5.1",
+    "derequire": "2.0.3",
+    "expect.js": "0.3.1",
+    "has-cors": "1.1.0",
+    "istanbul": "0.4.2",
+    "mocha": "2.3.4",
+    "socket.io": "1.4.5",
+    "text-blob-builder": "0.0.1",
+    "uglify-js": "2.6.1",
+    "zuul": "3.9.0",
+    "zuul-ngrok": "3.2.0"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "contributors": [
+    {
+      "name": "Guillermo Rauch",
+      "email": "rauchg@gmail.com"
+    },
+    {
+      "name": "Arnout Kazemier",
+      "email": "info@3rd-eden.com"
+    },
+    {
+      "name": "Vladimir Dronnikov",
+      "email": "dronnikov@gmail.com"
+    },
+    {
+      "name": "Einar Otto Stangvik",
+      "email": "einaros@gmail.com"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Automattic/socket.io-client.git"
+  },
+  "license": "MIT",
+  "gitHead": "5fe7373610ef92de0d34b44d503c22cab5712c8d",
+  "description": "[![Build Status](https://secure.travis-ci.org/socketio/socket.io-client.svg)](http://travis-ci.org/socketio/socket.io-client) [![Dependency Status](https://david-dm.org/socketio/socket.io-client.svg)](https://david-dm.org/socketio/socket.io-client) [![dev",
+  "bugs": {
+    "url": "https://github.com/Automattic/socket.io-client/issues"
+  },
+  "homepage": "https://github.com/Automattic/socket.io-client",
+  "_id": "socket.io-client@1.4.5",
+  "_shasum": "400d630c31e7c9579e45173f977e4f5bd8dc7d2e",
+  "_from": "socket.io-client@1.4.5",
+  "_npmVersion": "3.3.12",
+  "_nodeVersion": "5.3.0",
+  "_npmUser": {
+    "name": "rauchg",
+    "email": "rauchg@gmail.com"
+  },
+  "maintainers": [
+    {
+      "name": "rauchg",
+      "email": "rauchg@gmail.com"
+    }
+  ],
+  "dist": {
+    "shasum": "400d630c31e7c9579e45173f977e4f5bd8dc7d2e",
+    "tarball": "https://registry.npmjs.org/socket.io-client/-/socket.io-client-1.4.5.tgz"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/socket.io-client/-/socket.io-client-1.4.5.tgz"
+}
