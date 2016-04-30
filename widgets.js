@@ -22,7 +22,7 @@ var refreshNews = function() {
 		});
 	});
 }
-setTimeout(refreshNews, 1000 * 60 * config.widget.news.refreshRateInMinutes);
+setInterval(refreshNews, 1000 * 60 * config.widget.news.refreshRateInMinutes);
 refreshNews();
 
 module.exports.news = function (req, res) {
@@ -37,7 +37,7 @@ var refreshWeather = function() {
 		}
 	});
 }
-setTimeout(refreshWeather, 1000 * 60 * config.widget.weather.refreshRateInMinutes);
+setInterval(refreshWeather, 1000 * 60 * config.widget.weather.refreshRateInMinutes);
 refreshWeather();
 
 module.exports.weather = function (req, res) {
@@ -78,7 +78,7 @@ var refreshMovies = function() {
 		//movies.sort(function(a, b) { return (a.totalRating > b.totalRating) ? -1 : 1;} );
 	});
 }
-setTimeout(refreshMovies, 1000 * 60 * config.widget.cinema.refreshRateInMinutes);
+setInterval(refreshMovies, 1000 * 60 * config.widget.cinema.refreshRateInMinutes);
 refreshMovies();
 
 module.exports.cinema = function (req, res) {
