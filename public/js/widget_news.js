@@ -1,3 +1,7 @@
+function callbackGestureNews(gesture) {
+	console.log("Callback news");
+}
+
 $(document).ready(function() {
 	$.getJSON("news", function(data) {
 		var news = "<table>";

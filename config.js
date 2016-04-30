@@ -15,5 +15,6 @@ config.widget.news.url =  'http://www.france24.com/en/top-stories/rss';
 config.widget.news.refreshRateInMinutes = 60;
 
 config.web.port = 3000;
+config.web.motionUrl = 'http://localhost:3001/takePicture';
 
 module.exports = config;

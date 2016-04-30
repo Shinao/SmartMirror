@@ -1,8 +1,6 @@
-var agario = function(http) {
+var agario = function(socketIO) {
 	var AgarioClient = require('agario-client');
 
-	var io = require('socket.io')(http);
-	
 	var region = 'EU-London'; // Server region to request
 	var agario_client = new AgarioClient('workerSmartMirror'); //create new agario_client and call it "worker" (not nickname)
 	var interval_id = 0; // Game refreshing callback
@@ -13,7 +11,7 @@ var agario = function(http) {
 	agario_client.debug = 1; // Setting debug to 1 (avaialble 0-5)
 	agario_client.auth_token = ''; // You can put here your auth token to authorize agario_client. Check in README.md how to get it
 
-	io.on('connection', function(socket){
+	socketIO.of('/agario').on('connection', function(socket){
 		user_socket = socket;
 		
 		connectToAgarioServer();
