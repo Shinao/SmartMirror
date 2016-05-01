@@ -231,11 +231,11 @@ body {
 
 @-webkit-keyframes moveToRightFade {
 	from { }
-	to { opacity: 0.3; -webkit-transform: translateX(100%); }
+	to { opacity: 0.3; -webkit-transform: translateX(250%); }
 }
 @keyframes moveToRightFade {
 	from { }
-	to { opacity: 0.3; -webkit-transform: translateX(100%); transform: translateX(100%); }
+	to { opacity: 0.3; -webkit-transform: translateX(250%); transform: translateX(250%); }
 }
 
 @-webkit-keyframes moveFromRightFade {

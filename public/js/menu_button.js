@@ -75,12 +75,11 @@ $(document).ready(function() {
 	})(jQuery);
 
 	$('.progress-button').addClass('loading')
-	$(this).find('.progress-circle').svgDraw(0);
-
-	//$('.progress-button .progress-circle').svgDraw(0);
+	$('.progress-button .progress-circle').svgDraw(0);
 	$('.progress-button').on('click', function() {
+		menuButtonLoading = true;		
 		var $button = $(this);
-		 var $progress = $(this).find('.progress-circle');
+		var $progress = $(this).find('.progress-circle');
 		 
 		if ($button.hasClass('success'))
 		{
@@ -92,37 +91,72 @@ $(document).ready(function() {
 		
 		$(this).addClass('loading');
 		
-	   
-		var progress = 0;
-		var intervalId = setInterval(function() {
-			progress += 0.07;
-			$progress.svgDraw(progress);
+		intervalLoadingButtonId = setInterval(function() {
+			progressButtonLoading += 0.07;
+			$progress.svgDraw(progressButtonLoading);
 			
-			if( progress >= 1.25) {
-				clearInterval(intervalId);
+			if (progressButtonLoading >= 1.25) {
+				clearInterval(intervalLoadingButtonId);
 				
 				$button.removeClass('loading');
-				
 				$button.addClass('success');
 				timeline.start();
 				
+				menuButtonLoading = false;
+				setCallbackGesture(callbackGestureMainMenu);				
+				
 				setTimeout(function() {
-					$(".pt-page-1").addClass("pt-page-moveToLeftFade").removeClass("pt-page-current");
+					$(".pt-page-1").removeClass('pt-page-current').addClass("pt-page-moveToLeftFade");
 					$(".pt-page-2").addClass("pt-page-current pt-page-moveFromRightFade");
 					
 					setTimeout(function() {
-						$(".pt-page-1").removeClass("pt-page-current");
+						buttonLoadingFromGesture = false;						
+						progressButtonLoading = 0;
+						$button.removeClass('success').addClass('loading');
+						$progress.svgDraw(0);
+						$(".pt-page-1").removeClass("pt-page-moveToLeftFade");
+						$(".pt-page-2").removeClass("pt-page-moveFromRightFade");
 					}, 1000);
+					
 				}, animationDuration);
-
-				//$button.addClass('error');
 			}
 		}, 50);
-		
-		// Now that we finished, unbind
-		//$(this).off('click');
 	});
 	
-			
-		
+	setCallbackGesture(callbackGestureMenuButton);
 });
+
+var menuButtonLoading = false;
+var intervalLoadingButtonId = 0;
+var progressButtonLoading = 0;
+var buttonLoadingFromGesture = false;
+function callbackGestureMenuButton(gesture) {
+		console.log(JSON.stringify(gesture))
+
+	if (!menuButtonLoading)
+	{
+		if (gesture.palm && gesture.timeElapsedSinceSameGesture > 0.5)
+		{
+			buttonLoadingFromGesture = true;
+			$('.progress-button').click();
+		}
+		return;
+	}
+	
+	if (!buttonLoadingFromGesture)
+		return;
+	
+	if (!gesture.palm)
+	{
+		clearInterval(intervalLoadingButtonId);
+		$('.progress-button').removeClass('loading').addClass('error');
+		menuButtonLoading = false;
+		progressButtonLoading = 0;
+		
+		setTimeout(function() {
+			$('.progress-button').removeClass('error').addClass('loading');
+			$('.progress-button').find('.progress-circle').svgDraw(0);
+			buttonLoadingFromGesture = false;						
+		}, 1000);
+	}
+}
