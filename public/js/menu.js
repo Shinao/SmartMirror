@@ -34,7 +34,7 @@ function loadWidget(img, render_page, callback) {
 	+ "' data-callback='" + callback
 	+ "' />");
 	
-	var mySwiper = new Swiper ('.swiper-container', {
+	swiperMenu = new Swiper ('.swiper-container', {
 		// Optional parameters
 		direction: 'horizontal',
 		loop: true,
@@ -61,6 +61,7 @@ function loadWidget(img, render_page, callback) {
 	});
 }
 
+var swiperMenu = null;
 function callbackGestureMainMenu(gesture) {
 	if ((!gesture.palm && gesture.timeElapsedSinceSameGesture > 10) ||
 		(!gesture.foundHand && gesture.timeElapsedSinceSameGesture > 3))
@@ -72,7 +73,16 @@ function callbackGestureMainMenu(gesture) {
 			$(".pt-page-2").removeClass("pt-page-current pt-page-moveToRightFade");
 		}, 1000);
 		setCallbackGesture(callbackGestureMenuButton);
+		
+		return;
 	}
+	
+	if (gesture.slideLeft)
+		swiperMenu.slidePrev(false);
+	else if (gesture.slideRight)
+		swiperMenu.slideNext(false);
+	else if (gesture.thumbsUp && gesture.timeElapsedSinceSameGesture > 1)
+		$('.swiper-slide-active').click();
 }
 
 callbackGesture = callbackGestureMainMenu;
