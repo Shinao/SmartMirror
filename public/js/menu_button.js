@@ -135,7 +135,7 @@ function callbackGestureMenuButton(gesture) {
 
 	if (!menuButtonLoading)
 	{
-		if (gesture.palm && gesture.timeElapsedSinceSameGesture > 0.5)
+		if (gesture.palm && gesture.elapsedTimeWithSameGesture > 0.5)
 		{
 			buttonLoadingFromGesture = true;
 			$('.progress-button').click();

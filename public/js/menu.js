@@ -15,6 +15,12 @@ $(document).ready(function() {
 			setCallbackGesture(window[widget.data('callback')]);
 			$(".screen-page-1").addClass("pt-page-moveToLeftFade");
 			$(".screen-page-2").addClass("pt-page-current pt-page-moveFromRightFade");
+			setTimeout(function () { 
+				$(".screen-page-1").removeClass("pt-page-current pt-page-moveToLeftFade");
+				$(".screen-page-2").removeClass("pt-page-moveFromRightFade");
+				$("#menuContainer").hide();
+				$("#infoContainer").hide();
+			}, 1000);
 		});
 	});
 	
@@ -63,8 +69,8 @@ function loadWidget(img, render_page, callback) {
 
 var swiperMenu = null;
 function callbackGestureMainMenu(gesture) {
-	if ((!gesture.palm && gesture.timeElapsedSinceSameGesture > 10) ||
-		(!gesture.foundHand && gesture.timeElapsedSinceSameGesture > 3))
+	if ((!gesture.palm && gesture.elapsedTimeWithSameGesture > 10) ||
+		(!gesture.foundHand && gesture.elapsedTimeWithSameGesture > 3))
 	{
 		$(".pt-page-2").addClass("pt-page-moveToRightFade");
 		$(".pt-page-1").addClass("pt-page-current pt-page-moveFromLeftFade");
@@ -81,11 +87,31 @@ function callbackGestureMainMenu(gesture) {
 		swiperMenu.slidePrev(false);
 	else if (gesture.slideRight)
 		swiperMenu.slideNext(false);
-	else if (gesture.thumbsUp && gesture.timeElapsedSinceSameGesture > 1)
+	else if (gesture.thumbsUp && gesture.elapsedTimeWithSameGesture > 1)
 		$('.swiper-slide-active').click();
 }
 
-callbackGesture = callbackGestureMainMenu;
 function setCallbackGesture(callback) {
 	callbackGesture = callback;
+}
+
+function bringBackMainMenu() {
+	$("#menuContainer").show();
+	$("#infoContainer").show();
+	$(".screen-page-2").addClass("pt-page-moveToRightFade");
+	$(".screen-page-1").addClass("pt-page-current pt-page-moveFromLeftFade");
+	setTimeout(function () { 
+		$(".screen-page-2").removeClass("pt-page-current pt-page-moveToRightFade");
+		$(".screen-page-1").removeClass("pt-page-moveFromLeftFade");
+	}, 1000);
+	setCallbackGesture(callbackGestureMainMenu);
+}
+
+function smoothScrollBy(position, timeInMs) {
+	for (var nbFrame = 1; nbFrame <= 60; nbFrame += 1)
+	{
+		setTimeout(function() {
+			window.scrollBy(0, position / 60);
+		}, timeInMs / 60 * nbFrame);
+	}
 }

@@ -1,5 +1,10 @@
 function callbackGestureNews(gesture) {
-	console.log("Callback news");
+	if (gesture.palm && gesture.elapsedTimeWithSameGesture > 1)
+		bringBackMainMenu();
+	else if (gesture.slideUp)
+		smoothScrollBy(window.innerHeight, 750);
+	else if (gesture.slideDown)
+		smoothScrollBy(window.innerHeight * -1, 750);
 }
 
 $(document).ready(function() {
