@@ -14,7 +14,6 @@ app.get('/', function (req, res) {
 });
 
 var widgets = require('./widgets');
-require('./widget_agario.js')(socketIO);
 
 app.get('/weather', widgets.weather);
 app.get('/news', widgets.news);
@@ -42,11 +41,6 @@ app.get('/motion/uploadPhoto', function (req, res) {
 
   var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
   
-  // generate a url that asks permissions for Google+ and Google Calendar scopes
-// var scopes = [
-//   'https://www.googleapis.com/auth/drive',
-// ];
-
 // var url = oauth2Client.generateAuthUrl({
 //   access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
 //   scope: 'https://www.googleapis.com/auth/drive' // If you only need one scope you can pass it as string
@@ -60,7 +54,7 @@ app.get('/motion/uploadPhoto', function (req, res) {
     oauth2Client.setCredentials(tokens);
     console.log("Token retrieved: ");
     console.log(tokens);
-    fs.writeFile("./drive_access_token.txt", tokens.refresh_token);  
+    fs.writeFile("./drive_access_token.txt", tokens.access_token);  
   }
   else
     console.log("ERROR getToken: " + err);

@@ -1,8 +1,7 @@
 $(document).ready(function() {
-	
 	// Add your widget here
 	loadWidget("img/drive_photo.png", "widget_drive_photo.html", "callbackGesturePhoto");
-	loadWidget("img/agario.png", "widget_agario.html", "callbackGestureAgario");
+	loadWidget("img/doodlejump.png", "widget_doodlejump.html", "callbackGestureDoodleJump");
 	loadWidget("img/map.png", "widget_map.html", "callbackGestureMap");
 	loadWidget("img/cinema.png", "widget_cinema.html", "callbackGestureCinema");
 	loadWidget("img/news.png", "widget_news.html", "callbackGestureNews");
@@ -84,9 +83,9 @@ function callbackGestureMainMenu(gesture) {
 	}
 	
 	if (gesture.slideLeft)
-		swiperMenu.slidePrev(false);
-	else if (gesture.slideRight)
 		swiperMenu.slideNext(false);
+	else if (gesture.slideRight)
+		swiperMenu.slidePrev(false);
 	else if (gesture.thumbsUp && gesture.elapsedTimeWithSameGesture > 1)
 		$('.swiper-slide-active').click();
 }
