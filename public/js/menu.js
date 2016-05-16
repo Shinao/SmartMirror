@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
 	
 	// Add your widget here
@@ -43,7 +42,7 @@ function loadWidget(img, render_page, callback) {
 	swiperMenu = new Swiper ('.swiper-container', {
 		// Optional parameters
 		direction: 'horizontal',
-		loop: true,
+		loop: false,
 
 		// If we need pagination
 		pagination: '.swiper-pagination',
@@ -65,6 +64,7 @@ function loadWidget(img, render_page, callback) {
 			stretch: 0,
 		}
 	});
+	swiperMenu.slideNext(false);
 }
 
 var swiperMenu = null;
