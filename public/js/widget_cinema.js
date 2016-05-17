@@ -1,3 +1,12 @@
+function callbackGestureCinema(gesture) {
+	if (gesture.palm && gesture.elapsedTimeWithSameGesture > 0.5)
+		bringBackMainMenu();
+	else if (gesture.slideUp)
+		smoothScrollBy(window.innerHeight, 750);
+	else if (gesture.slideDown)
+		smoothScrollBy(window.innerHeight * -1, 750);
+}
+
 $(document).ready(function() {
 	$.getJSON("cinema", function(data) {
 		var idxMovie = 0;

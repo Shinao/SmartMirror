@@ -1,3 +1,8 @@
+function callbackGestureMap(gesture) {
+	if (gesture.palm && gesture.elapsedTimeWithSameGesture > 0.5)
+		bringBackMainMenu();
+}
+
 function initMap() {
 	var mapDiv = document.getElementById('map');
 

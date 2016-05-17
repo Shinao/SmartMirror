@@ -1,5 +1,5 @@
 function callbackGestureNews(gesture) {
-	if (gesture.palm && gesture.elapsedTimeWithSameGesture > 1)
+	if (gesture.palm && gesture.elapsedTimeWithSameGesture > 0.5)
 		bringBackMainMenu();
 	else if (gesture.slideUp)
 		smoothScrollBy(window.innerHeight, 750);
