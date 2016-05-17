@@ -6,14 +6,24 @@ function callbackGestureDoodleJump(gesture) {
 
   previousGesture = currentGesture;
   currentGesture = gesture;
+  console.log(currentGesture);
   if (previousGesture == null)
     return;
     
   var diffX = currentGesture.centerX - previousGesture.centerX;
-  if (diffX > 5)
-    Player.dir = diffX > 0 ? "right" : "left";
-  else
-    Player.dir = "";
+  console.log("diffX: " + diffX)
+  player.isMovingLeft = false;
+  player.isMovingRight = false;
+  if (diffX > 10)
+  {
+    player.isMovingLeft = true;
+    dir = "left";
+  }
+  else if (diffX > -10)
+  {
+    player.isMovingRight = true;
+    dir = "right";
+  }
 }
 
 
@@ -236,11 +246,10 @@ var spring = function() {
 };
 
 var Spring = new spring();
-
+  var dir = "left";
 function init() {
   //Variables for the game
-  var dir = "left",
-    jumpCount = 0;
+  var jumpCount = 0;
   
   firstRun = false;
 
@@ -255,10 +264,8 @@ function init() {
   function playerCalc() {
     if (dir == "left") {
       player.dir = "left";
-      if (player.vy < -7 && player.vy > -15) player.dir = "left_land";
     } else if (dir == "right") {
       player.dir = "right";
-      if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
     }
 
     //Adding keyboard controls
@@ -273,12 +280,12 @@ function init() {
         player.isMovingRight = true;
       }
       
-      if(key == 32) {
-        if(firstRun === true)
-          init();
-        else 
-          reset();
-      }
+      // if(key == 32) {
+      //   if(firstRun === true)
+      //     init();
+      //   else 
+      //     reset();
+      // }
     };
 
     document.onkeyup = function(e) {
@@ -311,10 +318,10 @@ function init() {
     }
 
     // Speed limits!
-    if(player.vx > 8)
-      player.vx = 8;
-    else if(player.vx < -8)
-      player.vx = -8;
+    if(player.vx > 4)
+      player.vx = 4;
+    else if(player.vx < -4)
+      player.vx = -4;
 
     //console.log(player.vx);
     
@@ -523,25 +530,14 @@ function reset() {
 
 //Hides the menu
 function hideMenu() {
-  var menu = document.getElementById("mainMenu");
-  menu.style.zIndex = -1;
 }
 
 //Shows the game over menu
 function showGoMenu() {
-  var menu = document.getElementById("gameOverMenu");
-  menu.style.zIndex = 1;
-  menu.style.visibility = "visible";
-
-  var scoreText = document.getElementById("go_score");
-  scoreText.innerHTML = "You scored " + score + " points!";
 }
 
 //Hides the game over menu
 function hideGoMenu() {
-  var menu = document.getElementById("gameOverMenu");
-  menu.style.zIndex = -1;
-  menu.style.visibility = "hidden";
 }
 
 //Show ScoreBoard
@@ -574,28 +570,6 @@ function playerJump() {
     player.dir = "right";
     if (player.vy < -7 && player.vy > -15) player.dir = "right_land";
   }
-
-  //Adding keyboard controls
-  document.onkeydown = function(e) {
-    var key = e.keyCode;
-
-    if (key == 37) {
-      dir = "left";
-      player.isMovingLeft = true;
-    } else if (key == 39) {
-      dir = "right";
-      player.isMovingRight = true;
-    }
-  
-    if(key == 32) {
-      if(firstRun === true) {
-        init();
-        firstRun = false;
-      }
-      else 
-        reset();
-    }
-  };
 
   document.onkeyup = function(e) {
     var key = e.keyCode;
