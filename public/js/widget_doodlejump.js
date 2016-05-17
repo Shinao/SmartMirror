@@ -6,12 +6,10 @@ function callbackGestureDoodleJump(gesture) {
 
   previousGesture = currentGesture;
   currentGesture = gesture;
-  console.log(currentGesture);
   if (previousGesture == null)
     return;
     
   var diffX = currentGesture.centerX - previousGesture.centerX;
-  console.log("diffX: " + diffX)
   player.isMovingLeft = false;
   player.isMovingRight = false;
   if (diffX > 10)
@@ -19,7 +17,7 @@ function callbackGestureDoodleJump(gesture) {
     player.isMovingLeft = true;
     dir = "left";
   }
-  else if (diffX > -10)
+  else if (diffX < -10)
   {
     player.isMovingRight = true;
     dir = "right";
@@ -303,25 +301,25 @@ function init() {
     //Accelerations produces when the user hold the keys
     if (player.isMovingLeft === true) {
       player.x += player.vx;
-      player.vx -= 0.15;
+      player.vx -= 0.30;
     } else {
       player.x += player.vx;
-      if (player.vx < 0) player.vx += 0.1;
+      if (player.vx < 0) player.vx += 0.2;
     }
 
     if (player.isMovingRight === true) {
       player.x += player.vx;
-      player.vx += 0.15;
+      player.vx += 0.30;
     } else {
       player.x += player.vx;
-      if (player.vx > 0) player.vx -= 0.1;
+      if (player.vx > 0) player.vx -= 0.2;
     }
 
     // Speed limits!
-    if(player.vx > 4)
-      player.vx = 4;
-    else if(player.vx < -4)
-      player.vx = -4;
+    if(player.vx > 3)
+      player.vx = 3;
+    else if(player.vx < -3)
+      player.vx = -3;
 
     //console.log(player.vx);
     
