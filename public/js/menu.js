@@ -1,9 +1,10 @@
 $(document).ready(function() {
 	// Add your widget here
-	loadWidget("img/drive_photo.png", "widget_drive_photo.html", "callbackGesturePhoto");
+	
 	loadWidget("img/doodlejump.png", "widget_doodlejump.html", "callbackGestureDoodleJump");
 	loadWidget("img/map.png", "widget_map.html", "callbackGestureMap");
 	loadWidget("img/cinema.png", "widget_cinema.html", "callbackGestureCinema");
+	loadWidget("img/drive_photo.png", "widget_photo.html", "callbackGesturePhoto");
 	loadWidget("img/news.png", "widget_news.html", "callbackGestureNews");
 	
 	// Widget click event
@@ -102,8 +103,10 @@ function bringBackMainMenu() {
 	setTimeout(function () { 
 		$(".screen-page-2").removeClass("pt-page-current pt-page-moveToRightFade");
 		$(".screen-page-1").removeClass("pt-page-moveFromLeftFade");
-	}, 1000);
+		$("#widget").html("");
+	}, 800);
 	setCallbackGesture(callbackGestureMainMenu);
+	window.scrollTo(0, 0);
 }
 
 function smoothScrollBy(position, timeInMs) {

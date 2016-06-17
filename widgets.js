@@ -44,10 +44,6 @@ module.exports.weather = function (req, res) {
 	res.send(weather);
 }
 
-module.exports.agario = function (req, res) {
-  res.sendFile(__dirname + '/public/agario.html');
-}
-
 var movies = [];
 var refreshMovies = function() {
 	request(config.widget.cinema.url, function (error, response, html) {

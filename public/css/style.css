@@ -330,3 +330,32 @@ body {
 	text-align: left;
 	max-width: 400px;
 }
+
+#widget #photo {
+	height: 100%;
+	width: 100%;
+	margin-top: 10%;
+	align-items: center;
+	justify-content: center;
+}
+
+#widget #photo #countdown {
+	padding: 25px 100px;
+	font-size: 200px;
+	background-color: #CECECE;
+	border-radius: 2px;
+}
+
+#widget #photo #photoTaken {
+	display: none;
+	max-width: 500px;
+	max-height: 500px;
+}
+
+#widget #photo #uploadLibelle {
+	display: none;
+	padding: 5px 15px;
+	font-size: 50px;
+	background-color: #CECECE;
+	border-radius: 2px;	
+}

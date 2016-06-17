@@ -4,6 +4,7 @@ var config = require('./config');
 var app = express();
 var http = require('http').Server(app);
 var request = require('request');
+var fs = require('fs'); 
 var socketIO = require('socket.io')(http);
 var socketClient = null;
 
@@ -15,91 +16,58 @@ app.get('/', function (req, res) {
 
 var widgets = require('./widgets');
 
+
+// Widgets needing infos from server (scraping infos mostly)
 app.get('/weather', widgets.weather);
 app.get('/news', widgets.news);
-app.get('/agario', widgets.agario);
 app.get('/cinema', widgets.cinema);
 
 // Web Socket IO for sending gestures to client
 socketIO.of('/motion').on('connection', function(socket){ socketClient = socket; });
+
 // Forwarding between motion server and client
-app.get('/motion/gesture', function (req, res) { try { socketClient.emit('gesture', req.query); } catch(e) {} res.sendStatus(200); });
-app.get('/motion/takePhoto', function (req, res) { request(config.web.motionUrl, function(err) {}); res.sendStatus(200); });
-app.get('/motion/uploadPhoto', function (req, res) { 
-  'use strict';
-
-  var fs = require('fs');
-  var google = require('googleapis');
-  var drive = google.drive('v2');
-  var OAuth2Client = google.auth.OAuth2;
-
-  // Client ID and client secret are available at
-  // https://code.google.com/apis/console
-  var CLIENT_ID = "625168260868-d7khqbuva1m80s46a7rv8cglkpko7lnb.apps.googleusercontent.com";
-  var CLIENT_SECRET = "cfN3dYpE5PyRI41v_r2an14J";
-  var REDIRECT_URL = 'http://whatever.com/oauth';
-
-  var oauth2Client = new OAuth2Client(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-  
-// var url = oauth2Client.generateAuthUrl({
-//   access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-//   scope: 'https://www.googleapis.com/auth/drive' // If you only need one scope you can pass it as string
-// });
-
-// res.send("<a href="+url+">Click here to get code</a>");
-  
-  oauth2Client.getToken(config.widget.photo.refreshToken, function(err, tokens) {
-  // Now tokens contains an access_token and an optional refresh_token. Save them.
-  if(!err) {
-    oauth2Client.setCredentials(tokens);
-    console.log("Token retrieved: ");
-    console.log(tokens);
-    fs.writeFile("./drive_access_token.txt", tokens.access_token);  
-  }
-  else
-    console.log("ERROR getToken: " + err);
-    
-  var saved_access_token = '';
-  try { saved_access_token = fs.readFileSync('./drive_access_token.txt').toString(); }
-  catch (e) { console.log("Error getting access token"); }
-    
-  oauth2Client.setCredentials({
-    access_token: saved_access_token,
-    refresh_token: config.widget.photo.refreshToken
-  });
-    
-    // insertion example
-  drive.files.insert({
-    resource: {
-      title: 'Test',
-      mimeType: 'text/plain'
-    },
-    media: {
-      mimeType: 'text/plain',
-      body: 'Hello World updated with metadata'
-    },
-    auth: oauth2Client
-    }, function (err, response) {
-    console.log('error:', err, 'inserted:', response);
-  });
+app.get('/motion/gesture', function (req, res) {
+  try { 
+    socketClient.emit('gesture', req.query); 
+  } 
+  catch(e) {} 
+  res.sendStatus(200); 
 });
-  
-  // oauth2Client.refreshAccessToken(function(err, tokens){ console.log(err); console.log("//"); console.log(tokens);});
+app.get('/motion/takePhoto/:filepath', function (req, res) {
+  try {  // Removing current photo if found
+    fs.unlinkSync("public/" + req.params.filepath);
+  } catch(e) {}
+  request(config.web.motionUrl + req.params.filepath, function(err) {
+    res.sendStatus(err ? 404 : 200); 
+  }); 
+});
+app.get('/doesFileExist/:filepath', function (req, res) {
+  fs.access("public/" + req.params.filepath, fs.R_OK | fs.W_OK, (err) => {
+    res.sendStatus(err ? 404 : 200); 
+  })
+});
 
+app.get('/motion/uploadPhoto/:filepath', function (req, res) {
+  fs.readFile("public/" + req.params.filepath, function read(err, data) {
+    if (err) {
+      console.log("Could not read photo: ", err);
+      res.sendStatus(404);
+    }
 
-  // drive.files.insert({
-  //   resource: {
-  //     title: 'testimage.jpg',
-  //     mimeType: 'image/jpg'
-  //   },
-  //   media: {
-  //     mimeType: 'image/jpg',
-  //     body: fs.createReadStream('frame.jpg') // read streams are awesome!
-  //   },
-  //   auth: oauth2Client
-  // }, function (err, response) {
-  //   console.log('error:', err, 'inserted:', response);
-  // });
+    content = data;
+    request.put('https://api-content.dropbox.com/1/files_put/auto/' + req.params.filepath, {
+      headers: { Authorization: 'Bearer ' + config.widget.photo.dropboxKey,  'Content-Type': 'text/plain'},
+      body:content},
+      function optionalCallback (err, httpResponse, bodymsg) {
+      if (err) {
+        console.log("Could not upload to dropbox: ", err);
+        res.sendStatus(400);
+      }
+
+      console.log("Uploaded photo to dropbox: ", bodymsg);
+      res.sendStatus(200);
+    });
+  });
 });
 
 http.listen(config.web.port, function () {
