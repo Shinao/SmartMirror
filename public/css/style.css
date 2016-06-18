@@ -19,6 +19,8 @@ body {
 	position: absolute;
 }
 
+#widget::-webkit-scrollbar { width: 0 !important }
+
 #canvasAgario {
 	margin: auto;
 	display: block;
@@ -27,10 +29,8 @@ body {
 #time {
 	font-size: 700%;
 	margin:0;
-	//overflow:hidden;
 	opacity: 1;
 	color: white;
-	margin: -20px;
 }
 
 #weatherContainer #metric {
