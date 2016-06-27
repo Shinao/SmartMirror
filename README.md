@@ -11,7 +11,7 @@ Showing the display of the main menu and a use case on the widget Cinema (movie 
 <p align="center">
   <img src="/docs/SmartMirror_DisplayMenu_Preview.gif"/>       <img src="/docs/SmartMirror_Widget_Preview.gif"/>
 </p>
-
+[Show full webm preview](https://gfycat.com/UnsungBlueAmericanshorthair)
 
 <br>
 **Capacities**
@@ -44,8 +44,20 @@ the test.py file and tweak the HSV min/max values and others configs properly yo
 - Hardware :
   - [Two Way Mirror](http://fr.aliexpress.com/item/300mm-x-300mm-x-3-0mm-Acrylic-PMMA-Plexiglass-Partial-Translucent-Mirrored-Sheets-for-Infinity-illusion/32398641282.html)
   - Raspberry pi
-  - Camera
+  - Camera (I'm using the NoIR but any camera should do)
   
+
+<br>
+**Building**
+- Web server :
+  - `npm install`
+  - `node server.js`
+  - go to [http://localhost:3000](http://localhost:3000)
+- Motion server :
+  - Install OpenCV 2.x and cv2 wrapper for python (should be in the opencv package)
+  - `pip install numpy`
+  - `pip install tornado`
+  - `python test.py` for debug infos or `python main.py` for silent process
   
 <br>
 **Notes**
