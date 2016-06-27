@@ -131,7 +131,7 @@ var intervalLoadingButtonId = 0;
 var progressButtonLoading = 0;
 var buttonLoadingFromGesture = false;
 function callbackGestureMenuButton(gesture) {
-		console.log(JSON.stringify(gesture))
+	console.log(JSON.stringify(gesture))
 
 	if (!menuButtonLoading)
 	{

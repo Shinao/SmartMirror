@@ -1,4 +1,6 @@
 var config = require('./config');
+var fs = require('fs');
+var request = require('request');
 var socketClient = null;
 var socketIO = null;
 

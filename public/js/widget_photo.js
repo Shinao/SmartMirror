@@ -41,7 +41,7 @@ function takePhoto() {
 	});;
 }
 
-var startCountdown = 1;
+var startCountdown = 3;
 $(document).ready(function() {
 	setTimeout(takePhoto, 1000 * startCountdown);
 	

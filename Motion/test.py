@@ -19,20 +19,35 @@ def ManageMotion():
     motion = Motion()
 
     # Param on the fly
-    cv2.namedWindow('param')
-    cv2.createTrackbar('MAX H', 'param', 1, 255, nothing)
-    cv2.createTrackbar('MAX S', 'param', 1, 255, nothing)
-    cv2.createTrackbar('MAX V', 'param', 1, 255, nothing)
-    cv2.createTrackbar('MIN H', 'param', 1, 255, nothing)
-    cv2.createTrackbar('MIN S', 'param', 1, 255, nothing)
-    cv2.createTrackbar('MIN V', 'param', 1, 255, nothing)
+    cv2.namedWindow('paramMinMax')
+    cv2.createTrackbar('MAX H', 'paramMinMax', 1, 255, nothing)
+    cv2.createTrackbar('MAX S', 'paramMinMax', 1, 255, nothing)
+    cv2.createTrackbar('MAX V', 'paramMinMax', 1, 255, nothing)
+    cv2.createTrackbar('MIN H', 'paramMinMax', 1, 255, nothing)
+    cv2.createTrackbar('MIN S', 'paramMinMax', 1, 255, nothing)
+    cv2.createTrackbar('MIN V', 'paramMinMax', 1, 255, nothing)
 
-    cv2.setTrackbarPos('MAX H', 'param', config['hand']['hsv_upper_blue'][0])
-    cv2.setTrackbarPos('MAX S', 'param', config['hand']['hsv_upper_blue'][1])
-    cv2.setTrackbarPos('MAX V', 'param', config['hand']['hsv_upper_blue'][2])
-    cv2.setTrackbarPos('MIN H', 'param', config['hand']['hsv_lower_blue'][0])
-    cv2.setTrackbarPos('MIN S', 'param', config['hand']['hsv_lower_blue'][1])
-    cv2.setTrackbarPos('MIN V', 'param', config['hand']['hsv_lower_blue'][2])
+    cv2.setTrackbarPos('MAX H', 'paramMinMax', config['hand']['hsv_max_blue'][0])
+    cv2.setTrackbarPos('MAX S', 'paramMinMax', config['hand']['hsv_max_blue'][1])
+    cv2.setTrackbarPos('MAX V', 'paramMinMax', config['hand']['hsv_max_blue'][2])
+    cv2.setTrackbarPos('MIN H', 'paramMinMax', config['hand']['hsv_min_blue'][0])
+    cv2.setTrackbarPos('MIN S', 'paramMinMax', config['hand']['hsv_min_blue'][1])
+    cv2.setTrackbarPos('MIN V', 'paramMinMax', config['hand']['hsv_min_blue'][2])
+
+    cv2.namedWindow('paramSearchRange')
+    cv2.createTrackbar('INC H', 'paramSearchRange', 1, 255, nothing)
+    cv2.createTrackbar('INC S', 'paramSearchRange', 1, 255, nothing)
+    cv2.createTrackbar('INC V', 'paramSearchRange', 1, 255, nothing)
+    cv2.createTrackbar('DEC H', 'paramSearchRange', 1, 255, nothing)
+    cv2.createTrackbar('DEC S', 'paramSearchRange', 1, 255, nothing)
+    cv2.createTrackbar('DEC V', 'paramSearchRange', 1, 255, nothing)
+
+    cv2.setTrackbarPos('INC H', 'paramSearchRange', config['hand']['hsv_inc_blue'][0])
+    cv2.setTrackbarPos('INC S', 'paramSearchRange', config['hand']['hsv_inc_blue'][1])
+    cv2.setTrackbarPos('INC V', 'paramSearchRange', config['hand']['hsv_inc_blue'][2])
+    cv2.setTrackbarPos('DEC H', 'paramSearchRange', config['hand']['hsv_dec_blue'][0])
+    cv2.setTrackbarPos('DEC S', 'paramSearchRange', config['hand']['hsv_dec_blue'][1])
+    cv2.setTrackbarPos('DEC V', 'paramSearchRange', config['hand']['hsv_dec_blue'][2])
     frameIdx = 0
     currentSliding = "None"
     timeElapsedSinceLastSlide = time.time()
@@ -44,8 +59,10 @@ def ManageMotion():
         main.ManageCommands(motion)
 
         # Refresh config from param
-        #config['hand']['hsv_upper_blue'] = [cv2.getTrackbarPos('MAX H', 'param'), cv2.getTrackbarPos('MAX S', 'param'), cv2.getTrackbarPos('MAX V', 'param')]
-        #config['hand']['hsv_lower_blue'] = [cv2.getTrackbarPos('MIN H', 'param'), cv2.getTrackbarPos('MIN S', 'param'), cv2.getTrackbarPos('MIN V', 'param')]
+        config['hand']['hsv_upper_blue'] = [cv2.getTrackbarPos('MAX H', 'paramMinMax'), cv2.getTrackbarPos('MAX S', 'paramMinMax'), cv2.getTrackbarPos('MAX V', 'paramMinMax')]
+        config['hand']['hsv_lower_blue'] = [cv2.getTrackbarPos('MIN H', 'paramMinMax'), cv2.getTrackbarPos('MIN S', 'paramMinMax'), cv2.getTrackbarPos('MIN V', 'paramMinMax')]
+        config['hand']['hsv_inc_blue'] = [cv2.getTrackbarPos('INC H', 'paramSearchRange'), cv2.getTrackbarPos('INC S', 'paramSearchRange'), cv2.getTrackbarPos('INC V', 'paramSearchRange')]
+        config['hand']['hsv_dec_blue'] = [cv2.getTrackbarPos('DEC H', 'paramSearchRange'), cv2.getTrackbarPos('DEC S', 'paramSearchRange'), cv2.getTrackbarPos('DEC V', 'paramSearchRange')]
 
         # Manage motion and gestures
         motion.GetInformationOnNextFrame()

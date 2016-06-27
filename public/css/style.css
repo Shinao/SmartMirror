@@ -19,7 +19,7 @@ body {
 	position: absolute;
 }
 
-#widget::-webkit-scrollbar { width: 0 !important }
+html::-webkit-scrollbar { width: 0 !important }
 
 #canvasAgario {
 	margin: auto;
