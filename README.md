@@ -45,6 +45,7 @@ the test.py file and tweak the HSV min/max values and others configs properly yo
   - [Two Way Mirror](http://fr.aliexpress.com/item/300mm-x-300mm-x-3-0mm-Acrylic-PMMA-Plexiglass-Partial-Translucent-Mirrored-Sheets-for-Infinity-illusion/32398641282.html)
   - Raspberry pi
   - Camera (I'm using the NoIR but any camera should do)
+  - LED Monitor (Preferably that cover the whole surface of your two way mirror)
   
 
 <br>
