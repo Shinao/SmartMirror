@@ -29,7 +29,7 @@ Showing the display of the main menu and a use case on the widget Cinema (movie 
 **Debugging**
 
 The motion server can't recognize gestures on a new environment : lights, hand colors... affect the process, that's why by launching
-the test.py file and tweak the HSV min/max values and others configs properly you can set it up for your home.
+the test.py file and tweak the HSV min/max values and others configs properly you can set it up for your home. To begin the tracking make an open palm like shown in the picture below.
 <br>
 ![Debugging gesture](/docs/SmartMirror_Debug.png)
 [Show webm preview](https://gfycat.com/BountifulCanineBushsqueaker)
