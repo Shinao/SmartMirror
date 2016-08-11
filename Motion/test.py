@@ -1,12 +1,7 @@
 import cv2
 import time
-from motion import Motion
 from tornado import web, ioloop
 import threading
-import json
-import requests
-from config import config
-import logging
 
 from motion import Motion
 from config import config
@@ -51,6 +46,9 @@ def ManageMotion():
     frameIdx = 0
     currentSliding = "None"
     timeElapsedSinceLastSlide = time.time()
+
+    if not motion.IsActive():
+        print("No camera found")
 
     while motion.IsActive():
         # Refresh OpenCV
