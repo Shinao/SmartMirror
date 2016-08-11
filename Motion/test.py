@@ -50,6 +50,9 @@ def ManageMotion():
     if not motion.IsActive():
         print("No camera found")
 
+    # Debug Palm Tracking
+    #motion.debugPalm = True
+
     while motion.IsActive():
         # Refresh OpenCV
         cv2.waitKey(1)

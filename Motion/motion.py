@@ -12,6 +12,7 @@ class Motion(object):
     def __init__(self):
         self.videoDevice = cv2.VideoCapture(0)
         self.mask_rafined = None
+        self.debugPalm = False
         self.movementRatio = 0
         self.timeLastMotion = time.time()
         self.previousGestureProperties = None
@@ -62,6 +63,7 @@ class Motion(object):
     def TryToTrackHand(self):
         lower_blue_brightness = 255
         search_hand = Gesture()
+
         while lower_blue_brightness > 15:
             # define range of blue color in HSV
             lower_blue = np.array([config['hand']['hsv_lower_blue'][0], config['hand']['hsv_lower_blue'][1], lower_blue_brightness])
@@ -74,6 +76,11 @@ class Motion(object):
             # Threshold the HSV image to get only blue colors
             mask = cv2.inRange(hsv, lower_blue, upper_blue)
             self.mask_rafined = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+
+            # Debug Palm Detection
+            if self.debugPalm:
+                cv2.imshow('Mask from HSV Range', self.mask_rafined)
+                cv2.waitKey(5)
 
             search_hand_mask = self.mask_rafined.copy()
             foundPalm = search_hand.SearchPalmFromMask(search_hand_mask)
