@@ -24,6 +24,11 @@ class Motion(object):
         self.currentGesture = None
         self.handPointHSV = None
 
+        if config['useRaspberryPiCamera']:
+
+            from picamera import PiCamera
+            self.picamerra = PiCamera()
+
     def IsActive(self):
         return self.videoDevice.isOpened()
 
@@ -37,12 +42,26 @@ class Motion(object):
     def FoundMovement(self):
         return int(self.movementRatio) > config['frameDifferenceRatioForMovement']
 
+    # Manage raspberry pi camera or simple camera (see config useRaspberyPiCamera)
+    def GetFrameFromVideoDevice(self):
+        if not config['useRaspberryPiCamera']:
+            ret, Motion.currentFrame = self.videoDevice.read()
+            return
+
+        from picamera.array import PiRGBArray
+
+        # grab an image from the camera
+        rawCapture = PiRGBArray(self.picamera)
+        self.picamera.capture(rawCapture, format="bgr")
+        Motion.currentFrame = rawCapture.array
+
+
     def GetInformationOnNextFrame(self):
         # Store previous frame
         Motion.previousFrame = Motion.currentFrame
         
         # Capture frame-by-frame
-        ret, Motion.currentFrame = self.videoDevice.read()
+        self.GetFrameFromVideoDevice()
         if Motion.previousFrame == None:
             return
 

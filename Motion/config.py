@@ -1,4 +1,5 @@
 config = {
+    'useRaspberryPiCamera': False,
     'timeToSleepWhenNoMovement': 1,
     'timeToWaitWhenNoMovementBeforeSleep': 5,
     'frameDifferenceRatioForMovement': 1,
