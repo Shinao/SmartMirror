@@ -15,35 +15,35 @@ def ManageMotion():
     motion = Motion()
 
     # Param on the fly
-    cv2.namedWindow('paramMinMax')
-    cv2.createTrackbar('MAX H', 'paramMinMax', 1, 255, nothing)
-    cv2.createTrackbar('MAX S', 'paramMinMax', 1, 255, nothing)
-    cv2.createTrackbar('MAX V', 'paramMinMax', 1, 255, nothing)
-    cv2.createTrackbar('MIN H', 'paramMinMax', 1, 255, nothing)
-    cv2.createTrackbar('MIN S', 'paramMinMax', 1, 255, nothing)
-    cv2.createTrackbar('MIN V', 'paramMinMax', 1, 255, nothing)
+    cv2.namedWindow('paramMinMaxPalm')
+    cv2.createTrackbar('MAX H', 'paramMinMaxPalm', 1, 255, nothing)
+    cv2.createTrackbar('MAX S', 'paramMinMaxPalm', 1, 255, nothing)
+    cv2.createTrackbar('MAX V', 'paramMinMaxPalm', 1, 255, nothing)
+    cv2.createTrackbar('MIN H', 'paramMinMaxPalm', 1, 255, nothing)
+    cv2.createTrackbar('MIN S', 'paramMinMaxPalm', 1, 255, nothing)
+    cv2.createTrackbar('MIN V', 'paramMinMaxPalm', 1, 255, nothing)
 
-    cv2.setTrackbarPos('MAX H', 'paramMinMax', config['hand']['hsv_max_blue'][0])
-    cv2.setTrackbarPos('MAX S', 'paramMinMax', config['hand']['hsv_max_blue'][1])
-    cv2.setTrackbarPos('MAX V', 'paramMinMax', config['hand']['hsv_max_blue'][2])
-    cv2.setTrackbarPos('MIN H', 'paramMinMax', config['hand']['hsv_min_blue'][0])
-    cv2.setTrackbarPos('MIN S', 'paramMinMax', config['hand']['hsv_min_blue'][1])
-    cv2.setTrackbarPos('MIN V', 'paramMinMax', config['hand']['hsv_min_blue'][2])
+    cv2.setTrackbarPos('MAX H', 'paramMinMaxPalm', config['hand']['hsv_palm_max'][0])
+    cv2.setTrackbarPos('MAX S', 'paramMinMaxPalm', config['hand']['hsv_palm_max'][1])
+    cv2.setTrackbarPos('MAX V', 'paramMinMaxPalm', config['hand']['hsv_palm_max'][2])
+    cv2.setTrackbarPos('MIN H', 'paramMinMaxPalm', config['hand']['hsv_palm_min'][0])
+    cv2.setTrackbarPos('MIN S', 'paramMinMaxPalm', config['hand']['hsv_palm_min'][1])
+    cv2.setTrackbarPos('MIN V', 'paramMinMaxPalm', config['hand']['hsv_palm_min'][2])
 
-    cv2.namedWindow('paramSearchRange')
-    cv2.createTrackbar('INC H', 'paramSearchRange', 1, 255, nothing)
-    cv2.createTrackbar('INC S', 'paramSearchRange', 1, 255, nothing)
-    cv2.createTrackbar('INC V', 'paramSearchRange', 1, 255, nothing)
-    cv2.createTrackbar('DEC H', 'paramSearchRange', 1, 255, nothing)
-    cv2.createTrackbar('DEC S', 'paramSearchRange', 1, 255, nothing)
-    cv2.createTrackbar('DEC V', 'paramSearchRange', 1, 255, nothing)
+    cv2.namedWindow('paramSearchRangeHand')
+    cv2.createTrackbar('INC H', 'paramSearchRangeHand', 1, 255, nothing)
+    cv2.createTrackbar('INC S', 'paramSearchRangeHand', 1, 255, nothing)
+    cv2.createTrackbar('INC V', 'paramSearchRangeHand', 1, 255, nothing)
+    cv2.createTrackbar('DEC H', 'paramSearchRangeHand', 1, 255, nothing)
+    cv2.createTrackbar('DEC S', 'paramSearchRangeHand', 1, 255, nothing)
+    cv2.createTrackbar('DEC V', 'paramSearchRangeHand', 1, 255, nothing)
 
-    cv2.setTrackbarPos('INC H', 'paramSearchRange', config['hand']['hsv_inc_blue'][0])
-    cv2.setTrackbarPos('INC S', 'paramSearchRange', config['hand']['hsv_inc_blue'][1])
-    cv2.setTrackbarPos('INC V', 'paramSearchRange', config['hand']['hsv_inc_blue'][2])
-    cv2.setTrackbarPos('DEC H', 'paramSearchRange', config['hand']['hsv_dec_blue'][0])
-    cv2.setTrackbarPos('DEC S', 'paramSearchRange', config['hand']['hsv_dec_blue'][1])
-    cv2.setTrackbarPos('DEC V', 'paramSearchRange', config['hand']['hsv_dec_blue'][2])
+    cv2.setTrackbarPos('INC H', 'paramSearchRangeHand', config['hand']['hsv_hand_inc'][0])
+    cv2.setTrackbarPos('INC S', 'paramSearchRangeHand', config['hand']['hsv_hand_inc'][1])
+    cv2.setTrackbarPos('INC V', 'paramSearchRangeHand', config['hand']['hsv_hand_inc'][2])
+    cv2.setTrackbarPos('DEC H', 'paramSearchRangeHand', config['hand']['hsv_hand_dec'][0])
+    cv2.setTrackbarPos('DEC S', 'paramSearchRangeHand', config['hand']['hsv_hand_dec'][1])
+    cv2.setTrackbarPos('DEC V', 'paramSearchRangeHand', config['hand']['hsv_hand_dec'][2])
     frameIdx = 0
     currentSliding = "None"
     timeElapsedSinceLastSlide = time.time()
@@ -61,10 +61,10 @@ def ManageMotion():
         main.ManageCommands(motion)
 
         # Refresh config from param
-        config['hand']['hsv_upper_blue'] = [cv2.getTrackbarPos('MAX H', 'paramMinMax'), cv2.getTrackbarPos('MAX S', 'paramMinMax'), cv2.getTrackbarPos('MAX V', 'paramMinMax')]
-        config['hand']['hsv_lower_blue'] = [cv2.getTrackbarPos('MIN H', 'paramMinMax'), cv2.getTrackbarPos('MIN S', 'paramMinMax'), cv2.getTrackbarPos('MIN V', 'paramMinMax')]
-        config['hand']['hsv_inc_blue'] = [cv2.getTrackbarPos('INC H', 'paramSearchRange'), cv2.getTrackbarPos('INC S', 'paramSearchRange'), cv2.getTrackbarPos('INC V', 'paramSearchRange')]
-        config['hand']['hsv_dec_blue'] = [cv2.getTrackbarPos('DEC H', 'paramSearchRange'), cv2.getTrackbarPos('DEC S', 'paramSearchRange'), cv2.getTrackbarPos('DEC V', 'paramSearchRange')]
+        config['hand']['hsv_palm_max'] = [cv2.getTrackbarPos('MAX H', 'paramMinMaxPalm'), cv2.getTrackbarPos('MAX S', 'paramMinMaxPalm'), cv2.getTrackbarPos('MAX V', 'paramMinMaxPalm')]
+        config['hand']['hsv_palm_min'] = [cv2.getTrackbarPos('MIN H', 'paramMinMaxPalm'), cv2.getTrackbarPos('MIN S', 'paramMinMaxPalm'), cv2.getTrackbarPos('MIN V', 'paramMinMaxPalm')]
+        config['hand']['hsv_hand_inc'] = [cv2.getTrackbarPos('INC H', 'paramSearchRangeHand'), cv2.getTrackbarPos('INC S', 'paramSearchRangeHand'), cv2.getTrackbarPos('INC V', 'paramSearchRangeHand')]
+        config['hand']['hsv_hand_dec'] = [cv2.getTrackbarPos('DEC H', 'paramSearchRangeHand'), cv2.getTrackbarPos('DEC S', 'paramSearchRangeHand'), cv2.getTrackbarPos('DEC V', 'paramSearchRangeHand')]
 
         # Manage motion and gestures
         motion.GetInformationOnNextFrame()

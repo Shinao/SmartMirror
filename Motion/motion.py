@@ -91,13 +91,13 @@ class Motion(object):
         self.timeLastMotion = time.time()
 
     def TryToTrackHand(self):
-        lower_blue_brightness = 255
+        lower_blue_brightness = config['hand']['hsv_palm_max'][2]
         search_hand = Gesture()
 
         while lower_blue_brightness > 15:
             # define range of blue color in HSV
-            lower_blue = np.array([config['hand']['hsv_lower_blue'][0], config['hand']['hsv_lower_blue'][1], lower_blue_brightness])
-            upper_blue = np.array([config['hand']['hsv_upper_blue'][0], config['hand']['hsv_upper_blue'][1], 255])
+            lower_blue = np.array([config['hand']['hsv_palm_min'][0], config['hand']['hsv_palm_min'][1], lower_blue_brightness])
+            upper_blue = np.array([config['hand']['hsv_palm_max'][0], config['hand']['hsv_palm_max'][1], config['hand']['hsv_palm_max'][2]])
 
             kernel = np.ones((5, 5), np.float32) / 25
             blurred = cv2.filter2D(self.currentFrame.copy(), -1, kernel)
@@ -134,9 +134,9 @@ class Motion(object):
         hsv = cv2.cvtColor(blurred, cv2.COLOR_BGR2HSV)
 
         self.hand_lower_blue = self.AddValueToColorArray(
-            [-config['hand']['hsv_dec_blue'][0], -config['hand']['hsv_dec_blue'][1], -config['hand']['hsv_dec_blue'][2]], self.handPointHSV.copy())
+            [-config['hand']['hsv_hand_dec'][0], -config['hand']['hsv_hand_dec'][1], -config['hand']['hsv_hand_dec'][2]], self.handPointHSV.copy())
         self.hand_upper_blue = self.AddValueToColorArray(
-            [config['hand']['hsv_inc_blue'][0], config['hand']['hsv_inc_blue'][1], config['hand']['hsv_inc_blue'][2]], self.handPointHSV.copy())
+            [config['hand']['hsv_hand_inc'][0], config['hand']['hsv_hand_inc'][1], config['hand']['hsv_hand_inc'][2]], self.handPointHSV.copy())
 
         mask = cv2.inRange(hsv, self.hand_lower_blue, self.hand_upper_blue)
         self.mask_rafined = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)

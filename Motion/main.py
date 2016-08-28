@@ -16,7 +16,7 @@ def SendGesture(gesture):
     try:
         requests.get("http://localhost:3000/motion/gesture", params=json.dumps(gesture.properties))
     except Exception as ex:
-        print("Could not send gesture: ")
+        print("Could not send gesture: " + str(ex))
 
 def ManageCommands(motion):
     global take_photo
@@ -40,7 +40,8 @@ def ManageMotion():
             time.sleep(config['timeToSleepWhenNoMovement'])
 
         gesture = motion.GetGesture()
-
+        if gesture.properties['palm']:
+            print("PALM")
         threading.Thread(target=SendGesture, args=(gesture,)).start()
 
     motion.Dispose()
