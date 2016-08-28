@@ -40,8 +40,7 @@ def ManageMotion():
             time.sleep(config['timeToSleepWhenNoMovement'])
 
         gesture = motion.GetGesture()
-        if gesture.properties['palm']:
-            print("PALM")
+
         threading.Thread(target=SendGesture, args=(gesture,)).start()
 
     motion.Dispose()
