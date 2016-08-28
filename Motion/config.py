@@ -1,5 +1,9 @@
 config = {
-    'useRaspberryPiCamera': False,
+    'piCamera': {
+        'useCameraBoard': False,
+        'framerate': 16,
+        'resolution': (320, 240)
+    },
     'timeToSleepWhenNoMovement': 1,
     'timeToWaitWhenNoMovementBeforeSleep': 5,
     'frameDifferenceRatioForMovement': 1,

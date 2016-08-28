@@ -2,6 +2,7 @@ import cv2
 import time
 from tornado import web, ioloop
 import threading
+import os
 
 from motion import Motion
 from config import config
@@ -51,7 +52,7 @@ def ManageMotion():
         print("No camera found")
 
     # Debug Palm Tracking
-    #motion.debugPalm = True
+    motion.debugPalm = False
 
     while motion.IsActive():
         # Refresh OpenCV
@@ -135,6 +136,7 @@ def ManageMotion():
             break
 
     motion.Dispose()
+    os._exit(1)
 
 if __name__ == '__main__':
     threading.Thread(target=ManageMotion).start()

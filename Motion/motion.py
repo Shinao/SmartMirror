@@ -5,12 +5,16 @@ import time
 from config import config
 from gesture import Gesture
 
+# Only used for in board raspberry pi camera
+if config['piCamera']['useCameraBoard']:
+    from picamera.array import PiRGBArray
+    from picamera import PiCamera
+
 class Motion(object):
     currentFrame = None
     previousFrame = None
 
     def __init__(self):
-        self.videoDevice = cv2.VideoCapture(0)
         self.mask_rafined = None
         self.debugPalm = False
         self.movementRatio = 0
@@ -24,33 +28,40 @@ class Motion(object):
         self.currentGesture = None
         self.handPointHSV = None
 
-        if config['useRaspberryPiCamera']:
-
-            from picamera import PiCamera
+        if config['piCamera']['useCameraBoard']:
             self.picamerra = PiCamera()
+            self.picamerra.resolution = config['piCamera']['resolution']
+            self.picamerra.framerate = config['piCamera']['framerate']
+        else:
+            self.videoDevice = cv2.VideoCapture(0)
 
     def IsActive(self):
+        if config['piCamera']['useCameraBoard']:
+            return not self.picamerra.closed
+
         return self.videoDevice.isOpened()
 
     def TimeElapsedSinceLastMotion(self):
         return time.time() - self.timeLastMotion
 
     def Dispose(self):
-        self.videoDevice.release()
+        if config['piCamera']['useCameraBoard']:
+            self.picamerra.close()
+        else:
+            self.videoDevice.release()
+
         cv2.destroyAllWindows()
 
     def FoundMovement(self):
         return int(self.movementRatio) > config['frameDifferenceRatioForMovement']
 
-    # Manage raspberry pi camera or simple camera (see config useRaspberyPiCamera)
+    # Manage raspberry pi camera or simple camera (see config['RaspberryPi'])
     def GetFrameFromVideoDevice(self):
-        if not config['useRaspberryPiCamera']:
-            ret, Motion.currentFrame = self.videoDevice.read()
+        if not config['piCamera']['useCameraBoard']:
+            _, Motion.currentFrame = self.videoDevice.read()
             return
 
-        from picamera.array import PiRGBArray
-
-        # grab an image from the camera
+        # grab an image from the camera and convert it to an array
         rawCapture = PiRGBArray(self.picamera)
         self.picamera.capture(rawCapture, format="bgr")
         Motion.currentFrame = rawCapture.array
@@ -59,7 +70,7 @@ class Motion(object):
     def GetInformationOnNextFrame(self):
         # Store previous frame
         Motion.previousFrame = Motion.currentFrame
-        
+
         # Capture frame-by-frame
         self.GetFrameFromVideoDevice()
         if Motion.previousFrame == None:

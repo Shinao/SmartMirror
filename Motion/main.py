@@ -1,5 +1,5 @@
 import cv2
-import time
+import time, os
 from motion import Motion
 from tornado import web, ioloop
 import threading
@@ -44,6 +44,7 @@ def ManageMotion():
         threading.Thread(target=SendGesture, args=(gesture,)).start()
 
     motion.Dispose()
+    os._exit(1)
 
 class CommandHandler(web.RequestHandler):
     def get(self):
