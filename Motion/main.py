@@ -8,16 +8,17 @@ import requests
 from config import config
 import logging
 
-logging.getLogger("requests").setLevel(logging.WARNING)
+# Send gesture to node server
+logging.getLogger("requests").setLevel(logging.WARNING) # get infos on error
 take_photo = False
 photo_filepath = ""
-
 def SendGesture(gesture):
     try:
         requests.get("http://localhost:3000/motion/gesture", params=json.dumps(gesture.properties))
     except Exception as ex:
         print("Could not send gesture: " + str(ex))
 
+# Received command from node server to take a photo
 def ManageCommands(motion):
     global take_photo
 
@@ -28,6 +29,7 @@ def ManageCommands(motion):
     cv2.imwrite("../public/" + photo_filepath, motion.currentFrame)
     take_photo = False
 
+# Main loop - get gestures and send them
 def ManageMotion():
     motion = Motion()
 
@@ -52,7 +54,6 @@ class CommandHandler(web.RequestHandler):
         filepath = self.get_argument('filepath', 'public/frame.jpg')
         take_photo = True
         photo_filepath = filepath
-        self.write("OK");
 
 if __name__ == '__main__':
     threading.Thread(target=ManageMotion).start()

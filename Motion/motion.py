@@ -77,7 +77,7 @@ class Motion(object):
             return
 
         # Get frame difference to avoid doing things when there is no movement
-        self.frameDifference = cv2.absdiff(cv2.cvtColor(Motion.currentFrame, cv2.COLOR_RGB2GRAY), cv2.cvtColor(Motion .previousFrame, cv2.COLOR_BGR2GRAY))
+        self.frameDifference = cv2.absdiff(cv2.cvtColor(Motion.currentFrame, cv2.COLOR_RGB2GRAY), cv2.cvtColor(Motion .previousFrame, cv2.COLOR_RGB2GRAY))
         cntGray = 0
         for rowGray in self.frameDifference:
             for gray in rowGray:

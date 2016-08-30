@@ -14,7 +14,7 @@ def nothing(x):
 def ManageMotion():
     motion = Motion()
 
-    # Param on the fly
+    # Params to change on the fly
     cv2.namedWindow('paramMinMaxPalm')
     cv2.createTrackbar('MAX H', 'paramMinMaxPalm', 1, 255, nothing)
     cv2.createTrackbar('MAX S', 'paramMinMaxPalm', 1, 255, nothing)
@@ -51,11 +51,11 @@ def ManageMotion():
     if not motion.IsActive():
         print("No camera found")
 
-    # Debug Palm Tracking
+    # Debug Palm Tracking (See palm color detection in real time - consuming)
     motion.debugPalm = False
 
     while motion.IsActive():
-        # Refresh OpenCV
+        # Refresh OpenCV Windows
         cv2.waitKey(1)
 
         main.ManageCommands(motion)
