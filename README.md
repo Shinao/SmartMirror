@@ -59,7 +59,8 @@ the test.py file and tweak the HSV min/max values and others configs properly yo
   - `pip install numpy`
   - `pip install tornado`
   - `python test.py` for debug infos or `python main.py` for silent process
-  - `config.py` for the tracking settings - if you use a pi camera you have to enable it in there
+  - `config.py` for the tracking settings
+    - To use the Pi Camera set `piCamera` to true and install the package picamera `pip install "picamera[array]"`
   
 <br>
 **Notes**
