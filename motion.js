@@ -31,7 +31,7 @@ module.exports = function (app, http) {
 	});
 
 	app.get('/doesFileExist/:filepath', function (req, res) {
-		fs.access("public/" + req.params.filepath, fs.R_OK | fs.W_OK, (err) => {
+		fs.access("public/" + req.params.filepath, fs.R_OK | fs.W_OK, function(err) {
 			res.sendStatus(err ? 404 : 200); 
 		})
 	});
