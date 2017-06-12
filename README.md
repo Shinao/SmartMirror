@@ -52,7 +52,7 @@ the test.py file and tweak the HSV min/max values and others configs properly yo
   - `pip install tornado`
   - `python test.py` for debug infos or `python main.py` for silent process
   - `config.py` for the tracking settings
-    - To use the Pi Camera set `piCamera` to true and install the package picamera `pip install "picamera[array]"`
+    - To use the Pi Camera set `useCameraBoard.piCamera` in config.py to true and install the package picamera `pip install "picamera[array]"`
   
 ### Notes
 The motion server was made in python to learn the language, but it should have been made in C/C++ to gain execution speed and flowness in the gestures recognitions.
