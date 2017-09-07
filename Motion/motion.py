@@ -29,15 +29,15 @@ class Motion(object):
         self.handPointHSV = None
 
         if config['piCamera']['useCameraBoard']:
-            self.picamerra = PiCamera()
-            self.picamerra.resolution = config['piCamera']['resolution']
-            self.picamerra.framerate = config['piCamera']['framerate']
+            self.picamera = PiCamera()
+            self.picamera.resolution = config['piCamera']['resolution']
+            self.picamera.framerate = config['piCamera']['framerate']
         else:
             self.videoDevice = cv2.VideoCapture(0)
 
     def IsActive(self):
         if config['piCamera']['useCameraBoard']:
-            return not self.picamerra.closed
+            return not self.picamera.closed
 
         return self.videoDevice.isOpened()
 
@@ -46,7 +46,7 @@ class Motion(object):
 
     def Dispose(self):
         if config['piCamera']['useCameraBoard']:
-            self.picamerra.close()
+            self.picamera.close()
         else:
             self.videoDevice.release()
 
