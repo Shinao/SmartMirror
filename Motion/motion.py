@@ -73,7 +73,7 @@ class Motion(object):
 
         # Capture frame-by-frame
         self.GetFrameFromVideoDevice()
-        if Motion.previousFrame == None:
+        if Motion.previousFrame is None:
             return
 
         # Get frame difference to avoid doing things when there is no movement
